@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Taskleaf</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application',  'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+      </header>
+      <% flash.each do |key, value| %>
+      <div class="alert <%= bootstrap_class_for(key) %>" ><%= value %></div>
+      <% end %>
+    <div class="content">
+      <div class="title_parent">
+        <div class="title_child">
+          <%= yield :title %>
+        </div>
+      </div>
+    <%= yield :error %>
+    <div class="form-content">
+      <%= yield %>
+    </div>
+    </div>
+  </body>
+</html>
