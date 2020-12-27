@@ -1,22 +1,30 @@
 # README
-model:tasks
-    name
-      string
+1,model:tasks
+● description
+  ■ text
 
-    description
-             text
-    created_datetime
-                integer
-    done_datetime
-                integer
+● user_id
+  ■ string
+
+● created_id
+  ■ string
+
+● done_date
+  ■ string
+
+● timestamps
 
 
-model:user
-    name
-      string
 
-    email
-      string
+２、model:user
+● email
+  ■ string
 
-    password_digest
-              string
+● password_digest
+  ■ string
+
+● timestamps
+
+
+・heroku デプロイ
+git push heroku master
