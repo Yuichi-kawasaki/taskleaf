@@ -20,9 +20,15 @@
 
 
 『heroku デプロイ方法』
+
 rails assets:precompile RAILS_ENV=production　（アセットプリコンパイル）
+
 git add -A
+
 git commit -m "init"
+
 heroku create (初回のみ)
+
 git push heroku master
+
 heroku run rails db:migrate
