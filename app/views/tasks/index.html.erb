@@ -1,0 +1,25 @@
+  <% flash.each do |key, value| %>
+      <div class="alert <%= bootstrap_class_for(key) %>" ><%= value %></div>
+    <% end %>
+
+    <div class="timeline">
+
+
+      <article class="posts">
+        <div class="link_to_new">
+          <%= link_to new_task_path, method: :get do %>
+            <i class="fa fa-plus">新しく作成する</i>
+          <% end %>
+        </div>
+
+          <% @tasks.each do |task| %>
+
+          <div class="post_nav">
+          <tr>
+             <td><%= task.name %></td>
+             <td><%= link_to '詳細を確認する', task_path(task.id) %></td>
+             <td><%= link_to 'タスクの編集', edit_task_path(task.id) %></td>
+             <td><%= link_to 'タスクの消去', task_path(task), method: :delete, data: { confirm: '本当に消去しますか?' } %></td>
+          </div>
+        </div>
+        <% end %>

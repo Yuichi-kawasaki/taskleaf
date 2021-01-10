@@ -47,4 +47,5 @@ describe 'タスク管理機能', type: :system do
         expect(task_list[1]).to have_content 'task'
       end
   end
+ end
 end

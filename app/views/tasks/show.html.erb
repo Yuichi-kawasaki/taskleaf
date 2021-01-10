@@ -1,0 +1,9 @@
+<% content_for :name do %>
+<h1>タスクを編集する</h1>
+<% end %>
+
+<div class="submit">
+  <%= link_to '編集する', edit_task_path(task.id), class:"button" %>
+  <%= link_to '戻る', tasks_path, class:"button" %>
+  <%= link_to '消去', task_path(task.id), method: :delete, data: { confirm: '本当に消去しますか?' } %>
+</div>

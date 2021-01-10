@@ -3,28 +3,26 @@
 ● description
   ■ text
 
-● user_id
-  ■ string
+    ● timestamps
 
-● created_id
-  ■ string
+2,User
+    ● name
+      ■ string
 
-● done_date
-  ■ string
+    ● email
+      ■ string
 
-● timestamps
+    ● password_digest
+      ■ string
 
-
-
-２、model:user
-● email
-  ■ string
-
-● password_digest
-  ■ string
-
-● timestamps
+    ● timestamps
+>>>>>>> f4627c44a78d5ae8d4d4f0604f869c2a85e7796c
 
 
-・heroku デプロイ
+『heroku デプロイ方法』
+rails assets:precompile RAILS_ENV=production　（アセットプリコンパイル）
+git add -A
+git commit -m "init"
+heroku create (初回のみ)
 git push heroku master
+heroku run rails db:migrate

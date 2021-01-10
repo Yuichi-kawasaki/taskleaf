@@ -1,6 +1,6 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.all
+    @tasks = Task.all.order("id DESC")
   end
 
   def show
@@ -8,7 +8,11 @@ class TasksController < ApplicationController
   end
 
   def new
-    @task = Task.new
+    if params[:back]
+      @task = Task.new(task_params)
+    else
+      @task = Task.new
+    end
   end
 
   def edit
