@@ -14,24 +14,24 @@ RSpec.describe 'タスク管理機能', type: :system do
       expect(page).to have_content 'task1'
     end
   end
-  context 'ステータスを検索した場合'do
-    it '選択したステータスを含むタスクが表示される'do
-    visit tasks_path
-    select '未着手',from: 'ステータス検索'
-    click_button 'Search'
-    expect(page).to have_content '未着手'
-   end
-  end
-  context 'タイトルをあいまい検索し,かつステータスを検索した場合'do
-    it '入力値を含むタスクが表示され、かつ選択したステータスを含むタスクが表示される'do
-    visit tasks_path
-    fill_in 'タイトル検索',with: 'task1'
-    select '未着手',from: 'ステータス検索'
-    click_button 'Search'
-    expect(page).to have_content 'task1'
-    expect(page).to have_content '未着手'
-  end
-  end
+context 'ステータスを検索した場合'do
+it '選択したステータスを含むタスクが表示される'do
+visit tasks_path
+select '未着手',from: 'ステータス検索'
+click_button 'Search'
+expect(page).to have_content '未着手'
+end
+end
+context 'タイトルをあいまい検索し,かつステータスを検索した場合'do
+it '入力値を含むタスクが表示され、かつ選択したステータスを含むタスクが表示される'do
+visit tasks_path
+fill_in 'タイトル検索',with: 'task1'
+select '未着手',from: 'ステータス検索'
+click_button 'Search'
+expect(page).to have_content 'task1'
+expect(page).to have_content '未着手'
+end
+end
 end
 describe '新規作成機能' do
   context 'タスクを新規作成した場合' do
@@ -48,7 +48,7 @@ describe '新規作成機能' do
       expect(page).to have_content '12'
       expect(page).to have_content '未着手'
       expect(page).to have_content '低'
-
+      # expect(page).to have_content 'task_failure'
     end
   end
   context 'タスクが作成日時の降順に並んでいる場合' do
@@ -65,6 +65,7 @@ end
 describe '一覧表示機能' do
   context '一覧画面に遷移した場合' do
     it '作成済みのタスク一覧が表示される' do
+      # task = FactoryBot.create(:task, title: 'task')
 
       visit tasks_path
 
@@ -73,7 +74,7 @@ describe '一覧表示機能' do
   end
   context 'タスク終了期限でソートした場合' do
     it '終了期限降順で表示される' do
-
+      # ここに実装する
       visit tasks_path
 
       click_on '終了期限でソートする'
