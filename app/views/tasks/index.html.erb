@@ -1,9 +1,9 @@
 <h1>タスク一覧</h1>
 <p><%= notice %></p>
     <div>
-      <%= form_with(url:tasks_path,local: true,method: :get) do |form| %>
+      <%= form_with(url:tasks_path,local: true, method: :get) do |form| %>
       <%= form.label :name,'タイトル検索' %>
-      <%= form.text_field :name,value: params[:name] %>
+      <%= form.text_field :name, value: params[:name] %>
       <%= form.label :task_status,'ステータス検索' %>
       <%= form.select :task_status,Task.task_statuses.keys, selected: params[:task_status],include_blank:"選択して下さい" %>
       <%= form.submit 'Search' %>
@@ -30,13 +30,15 @@
              <td><%= task.priority %></td>
              <td><%= link_to '詳細を確認する', task_path(task.id) %></td>
              <td><%= link_to 'タスクの編集', edit_task_path(task.id) %></td>
-             <td><%= link_to 'タスクの消去', task_path(task), method: :delete, data: { confirm: '本当に消去しますか?' } %></td>
+             <td><%= link_to 'タスクの消去', task_path(task.id), method: :delete, data: { confirm: '本当に消去しますか?' } %></td>
           </tr>
            <% end %>
           </div>
           </tbody>
+          </table>
         <%= link_to "終了期限でソートする", tasks_path(sort_expired: "true"), class: "btn btn-primary btn-lg" %>
         <%= link_to "優先順位が高い順にソートする", tasks_path(sort_priority: "true"), class: "btn btn-primary btn-lg" %>
 
         <%= link_to 'タスクを作成する', new_task_path, class: "btn btn-dark btn-lg" %>
+
         <%= paginate @tasks %>

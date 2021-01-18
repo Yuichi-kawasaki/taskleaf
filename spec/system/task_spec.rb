@@ -14,34 +14,34 @@ RSpec.describe 'タスク管理機能', type: :system do
       expect(page).to have_content 'task1'
     end
   end
-context 'ステータスを検索した場合'do
-it '選択したステータスを含むタスクが表示される'do
-visit tasks_path
-select '未着手',from: 'ステータス検索'
-click_button 'Search'
-expect(page).to have_content '未着手'
-end
-end
-context 'タイトルをあいまい検索し,かつステータスを検索した場合'do
-it '入力値を含むタスクが表示され、かつ選択したステータスを含むタスクが表示される'do
-visit tasks_path
-fill_in 'タイトル検索',with: 'task1'
-select '未着手',from: 'ステータス検索'
-click_button 'Search'
-expect(page).to have_content 'task1'
-expect(page).to have_content '未着手'
-end
-end
+  context 'ステータスを検索した場合'do
+    it '選択したステータスを含むタスクが表示される'do
+    visit tasks_path
+    select '未着手',from: 'ステータス検索'
+    click_button 'Search'
+    expect(page).to have_content '未着手'
+    end
+  end
+  context 'タイトルをあいまい検索し,かつステータスを検索した場合'do
+    it '入力値を含むタスクが表示され、かつ選択したステータスを含むタスクが表示される'do
+    visit tasks_path
+    fill_in 'タイトル検索',with: 'task1'
+    select '未着手',from: 'ステータス検索'
+    click_button 'Search'
+    expect(page).to have_content 'task1'
+    expect(page).to have_content '未着手'
+    end
+   end
 end
 describe '新規作成機能' do
   context 'タスクを新規作成した場合' do
     it '作成したタスクが表示される' do
       visit new_task_path
-
-      fill_in 'Title',with: 'task1'
+      fill_in 'Name',with: 'task1'
       select '未着手',from: 'ステータス'
       select '低',from: '優先順位'
-      click_button 'Create Task'
+      click_button 'commit'
+      visit tasks_path
       expect(page).to have_content 'task1'
       expect(page).to have_content '2020'
       expect(page).to have_content '11'
@@ -65,8 +65,7 @@ end
 describe '一覧表示機能' do
   context '一覧画面に遷移した場合' do
     it '作成済みのタスク一覧が表示される' do
-      # task = FactoryBot.create(:task, title: 'task')
-
+      task = FactoryBot.create(:task, name: 'task')
       visit tasks_path
 
       expect(page).to have_content 'task1'
@@ -100,7 +99,7 @@ end
 describe '詳細表示機能' do
   context '任意のタスク詳細画面に遷移した場合' do
     it '該当タスクの内容が表示される' do
-      # @task = FactoryBot.create(:task, title: 'task')
+      # @task = FactoryBot.create(:task, name: 'task')
 
       visit task_path(@task1)
 

@@ -7,9 +7,10 @@ RSpec.describe Task, type: :model do
       @task1 = FactoryBot.create(:task, name: 'task1')
       @task2 = FactoryBot.create(:second_task, name: 'task2')
     end
+    # let!(:task) { FactoryBot.create(:task, name: 'task1') }
+    # let!(:second_task) { FactoryBot.create(:second_task, name: "task2") }
     context 'scopeメソッドでタイトルのあいまい検索をした場合' do
       it "検索キーワードを含むタスクが絞り込まれる" do
-        # title_seachはscopeで提示したタイトル検索用メソッドである。メソッド名は任意で構わない。
         expect(Task.get_by_name('task1')).to include(@task1)
         expect(Task.get_by_name('task1')).not_to include(@task2)
         expect(Task.get_by_name('task1').count).to eq 1
@@ -30,6 +31,7 @@ RSpec.describe Task, type: :model do
       end
     end
   end
+end
     describe 'バリデーションのテスト' do
       context 'タスクのタイトルが空の場合' do
         it 'バリデーションにひっかる' do
@@ -42,7 +44,7 @@ RSpec.describe Task, type: :model do
       context 'タスクの期限が空の場合' do
         it 'バリデーションにひっかかる' do
           # ここに内容を記載する
-          task = Task.new(title: 'task', task_limit_on: '', task_status: '未着手')
+          task = Task.new(name: 'task', task_limit_on: '', task_status: '未着手')
           expect(task).not_to be_valid
         end
       end
@@ -62,6 +64,5 @@ RSpec.describe Task, type: :model do
           expect(task).to be_valid
         end
       end
-    end
   end
 end
