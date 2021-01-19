@@ -16,10 +16,10 @@
 </div>
 <%= form.text_area :content, class:'form_control', rows: 10, placeholder: "コメントを書く"%>
 <div class="task_limit_on">
-  <%= form.label :task_limit_on, "期限" %>
+  <%= form.label :limit_on, "期限" %>
   <%= raw sprintf(
               form.date_select(
-                  :task_limit_on,
+                  :limit_on,
                   use_month_numbers: true,
                   start_year:        2020,
                   end_year:          (Time.now.year + 20),
@@ -30,9 +30,9 @@
 </div>
 
 
-<div class="task_status">
-  <%= form.label :task_status, "ステータス" %>
-  <%= form.select :task_status, [["未着手", "未着手"], ["着手中", "着手中"], ["完了", "完了"]], include_blank: "選択して下さい" %>
+<div class="status">
+  <%= form.label :status, "ステータス" %>
+  <%= form.select :status, [["未着手", "未着手"], ["着手中", "着手中"], ["完了", "完了"]], include_blank: "選択して下さい" %>
 </div>
 <div class="priority">
   <%= form.label :priority, "優先順位" %>
