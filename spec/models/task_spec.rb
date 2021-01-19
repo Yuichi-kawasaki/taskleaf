@@ -18,16 +18,16 @@ RSpec.describe Task, type: :model do
     end
     context 'scopeメソッドでステータス検索をした場合' do
       it "ステータスに完全一致するタスクが絞り込まれる" do
-        expect(Task.get_by_task_status('未着手')).to include(@task1)
-        expect(Task.get_by_task_status('未着手')).not_to include(@task2)
-        expect(Task.get_by_task_status('未着手').count).to eq 1
+        expect(Task.get_by_status('未着手')).to include(@task1)
+        expect(Task.get_by_status('未着手')).not_to include(@task2)
+        expect(Task.get_by_status('未着手').count).to eq 1
       end
     end
     context 'scopeメソッドでタイトルのあいまい検索とステータス検索をした場合' do
       it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
-        expect(Task.get_by_name('task1').get_by_task_status('未着手')).to include(@task1)
-        expect(Task.get_by_name('task1').get_by_task_status('未着手')).not_to include(@task2)
-        expect(Task.get_by_name('task1').get_by_task_status('未着手').count).to eq 1
+        expect(Task.get_by_name('task1').get_by_status('未着手')).to include(@task1)
+        expect(Task.get_by_name('task1').get_by_status('未着手')).not_to include(@task2)
+        expect(Task.get_by_name('task1').get_by_status('未着手').count).to eq 1
       end
     end
   end
@@ -36,7 +36,7 @@ end
       context 'タスクのタイトルが空の場合' do
         it 'バリデーションにひっかる' do
 
-          task = Task.new(name: '', task_limit_on: '2020-12-12', task_status: '未着手')
+          task = Task.new(name: '', limit_on: '2020-12-12', status: '未着手')
           expect(task).not_to be_valid
         end
       end
@@ -44,7 +44,7 @@ end
       context 'タスクの期限が空の場合' do
         it 'バリデーションにひっかかる' do
           # ここに内容を記載する
-          task = Task.new(name: 'task', task_limit_on: '', task_status: '未着手')
+          task = Task.new(name: 'task', limit_on: '', status: '未着手')
           expect(task).not_to be_valid
         end
       end
@@ -52,7 +52,7 @@ end
       context 'タスクのステイタスが空の場合' do
         it 'バリデーションにひっかかる' do
           # ここに内容を記載する
-          task = Task.new(name: 'task', task_limit_on: '2020-12-12', task_status: '')
+          task = Task.new(name: 'task', limit_on: '2020-12-12', status: '')
           expect(task).not_to be_valid
         end
       end
@@ -60,7 +60,7 @@ end
       context 'タスクのタイトルと期限とステイタスに内容が記載されている場合' do
         it 'バリデーションが通る' do
 
-          task = Task.new(name: 'task', task_limit_on: '2020-12-12', task_status: '未着手')
+          task = Task.new(name: 'task', limit_on: '2020-12-12', status: '未着手')
           expect(task).to be_valid
         end
       end

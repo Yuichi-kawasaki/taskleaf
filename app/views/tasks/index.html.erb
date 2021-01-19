@@ -4,8 +4,8 @@
       <%= form_with(url:tasks_path,local: true, method: :get) do |form| %>
       <%= form.label :name,'タイトル検索' %>
       <%= form.text_field :name, value: params[:name] %>
-      <%= form.label :task_status,'ステータス検索' %>
-      <%= form.select :task_status,Task.task_statuses.keys, selected: params[:task_status],include_blank:"選択して下さい" %>
+      <%= form.label :status,'ステータス検索' %>
+      <%= form.select :status,Task.statuses.keys, selected: params[:status],include_blank:"選択して下さい" %>
       <%= form.submit 'Search' %>
       <% end %>
     </div>
@@ -25,8 +25,8 @@
           <div class="post_nav">
           <tr>
              <td><%= task.name %></td>
-             <td><%= task.task_limit_on %></td>
-             <td><%= task.task_status %></td>
+             <td><%= task.limit_on %></td>
+             <td><%= task.status %></td>
              <td><%= task.priority %></td>
              <td><%= link_to '詳細を確認する', task_path(task.id) %></td>
              <td><%= link_to 'タスクの編集', edit_task_path(task.id) %></td>
@@ -40,5 +40,6 @@
         <%= link_to "優先順位が高い順にソートする", tasks_path(sort_priority: "true"), class: "btn btn-primary btn-lg" %>
 
         <%= link_to 'タスクを作成する', new_task_path, class: "btn btn-dark btn-lg" %>
+
 
         <%= paginate @tasks %>

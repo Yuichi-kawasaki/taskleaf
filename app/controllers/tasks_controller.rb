@@ -2,14 +2,14 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    if params[:name].present? && params[:task_status].present?
-      @tasks = Task.get_by_name(params[:name]).get_by_task_status(params[:task_status]).page(params[:page]).per(5)
+    if params[:name].present? && params[:status].present?
+      @tasks = Task.get_by_name(params[:name]).get_by_status(params[:status]).page(params[:page]).per(5)
     elsif params[:name].present?
       @tasks = Task.get_by_name(params[:name]).page(params[:page]).per(5)
-    elsif params[:task_status].present?
-      @tasks = Task.get_by_task_status(params[:task_status]).page(params[:page]).per(5)
+    elsif params[:status].present?
+      @tasks = Task.get_by_status(params[:status]).page(params[:page]).per(5)
     elsif params[:sort_expired]
-      @tasks = Task.order(task_limit_on: "DESC").page(params[:page]).per(5)
+      @tasks = Task.order(limit_on: "DESC").page(params[:page]).per(5)
     elsif params[:sort_priority]
       @tasks = Task.order(priority:"DESC").page(params[:page]).per(5)
     else
@@ -54,7 +54,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:name, :task_limit_on, :task_status, :priority)
+    params.require(:task).permit(:name, :limit_on, :status, :priority)
   end
   def set_task
     @task = Task.find(params[:id])

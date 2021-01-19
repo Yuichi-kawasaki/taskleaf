@@ -1,8 +1,8 @@
 
 <h1>タスクを編集する</h1>
 <p>タイトル: <%= @task.name %></p>
-<p>期限: <%= @task.task_limit_on %></p>
-<p>ステイタス: <%= @task.task_status %></p>
+<p>期限: <%= @task.limit_on %></p>
+<p>ステイタス: <%= @task.status %></p>
 <p>優先順位: <%= @task.priority %></p>
 
 <%= link_to 'タスク一覧画面に戻る', tasks_path, class: "btn btn-primary btn-lg" %>
