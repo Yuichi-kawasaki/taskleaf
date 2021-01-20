@@ -20,6 +20,7 @@
 
 
 『heroku デプロイ方法』
+
 rails assets:precompile RAILS_ENV=production　（アセットプリコンパイル）
 
 git add -A
