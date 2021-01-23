@@ -1,9 +1,15 @@
 Rails.application.routes.draw do
-  root to: 'tasks#index'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :tasks do
-      collection do
-        post :confirm
+  root to: "tasks#index"
+  namespace :admin do
+    resources :users, only: [:index, :new, :create, :show, :edit, :destroy, :update]
   end
-end
+  
+  resources :sessions, only: [:new, :create, :destroy]
+  resources :tasks do
+    collection do
+      post :confirm
+
+      resources :users, only: [:new, :create, :show]
+    end
+  end
 end

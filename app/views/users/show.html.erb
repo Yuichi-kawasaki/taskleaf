@@ -1,0 +1,6 @@
+
+<h1><%= @user.name %>のページ</h1>
+<p>メールアドレス: <%= @user.email %></p>
+
+<%= link_to 'タスクを作成する', new_task_path, class: "btn btn-dark btn-lg" %>
+<%= link_to 'タスク一覧画面へ', tasks_path, class: "btn btn-dark btn-lg" %>

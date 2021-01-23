@@ -40,6 +40,6 @@
         <%= link_to "優先順位が高い順にソートする", tasks_path(sort_priority: "true"), class: "btn btn-primary btn-lg" %>
 
         <%= link_to 'タスクを作成する', new_task_path, class: "btn btn-dark btn-lg" %>
-
+        <%= link_to '管理者画面/ユーザー一覧へ', admin_users_path, class: "btn btn-dark btn-lg" %>
 
         <%= paginate @tasks %>
