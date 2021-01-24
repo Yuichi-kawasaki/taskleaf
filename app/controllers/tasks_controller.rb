@@ -5,15 +5,15 @@ class TasksController < ApplicationController
     if params[:name].present? && params[:status].present?
       @tasks = current_user.tasks.get_by_name(params[:name]).get_by_status(params[:status]).page(params[:page]).per(5)
     elsif params[:name].present?
-      @tasks = current_user.tasks..get_by_name(params[:name]).page(params[:page]).per(5)
+      @tasks = current_user.tasks.get_by_name(params[:name]).page(params[:page]).per(5)
     elsif params[:status].present?
-      @tasks = current_user.tasks..get_by_status(params[:status]).page(params[:page]).per(5)
+      @tasks = current_user.tasks.get_by_status(params[:status]).page(params[:page]).per(5)
     elsif params[:sort_expired]
-      @tasks = current_user.tasks..order(limit_on: "DESC").page(params[:page]).per(5)
+      @tasks = current_user.tasks.order(limit_on: "DESC").page(params[:page]).per(5)
     elsif params[:sort_priority]
-      @tasks = current_user.tasks..order(priority:"DESC").page(params[:page]).per(5)
+      @tasks = current_user.tasks.order(priority:"DESC").page(params[:page]).per(5)
     else
-      @tasks = current_user.tasks..order(id: "DESC").page(params[:page]).per(5)
+      @tasks = current_user.tasks.order(id: "DESC").page(params[:page]).per(5)
     end
   end
 
@@ -39,7 +39,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = current_user.tasks.find(params[:id])
+    @task = current_user.tasks.build(params[:id])
     if @task.save
       redirect_to tasks_path, notice: "タスクを作成しました！"
     else
@@ -57,6 +57,6 @@ class TasksController < ApplicationController
     params.require(:task).permit(:name, :limit_on, :status, :priority)
   end
   def set_task
-    @task = current_user.tasks.(params[:id])
+    @task = current_user.tasks.find(params[:id])
   end
 end

@@ -1,8 +1,14 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
   before do
-    @task1 = FactoryBot.create(:task, name: 'task1')
-    @task2 = FactoryBot.create(:second_task, name: 'task2')
+    @user = FactoryBot.create(:user)
+    @admin_user = FactoryBot.create(:admin_user)
+    @task1 = FactoryBot.create(:task, name: 'task1', user_id: @admin_user)
+    @task2 = FactoryBot.create(:second_task, name: 'task2', user_id: @admin_user)
+    visit new_session_path
+    fill_in 'Email',with: 'admin@admin.com'
+    fill_in 'Password',with: '00000000'
+    click_button 'ログイン'
   end
 
   describe '検索機能'do
@@ -11,7 +17,9 @@ RSpec.describe 'タスク管理機能', type: :system do
       visit tasks_path
       fill_in 'タイトル検索',with: 'task1'
       click_button 'Search'
+      # sleep 0.5
       expect(page).to have_content 'task1'
+      expect( Task.count ).to eq 2
     end
   end
   context 'ステータスを検索した場合'do
@@ -65,7 +73,7 @@ end
 describe '一覧表示機能' do
   context '一覧画面に遷移した場合' do
     it '作成済みのタスク一覧が表示される' do
-      task = FactoryBot.create(:task, name: 'task')
+      # task = FactoryBot.create(:task, name: 'task')
       visit tasks_path
 
       expect(page).to have_content 'task1'
@@ -99,9 +107,9 @@ end
 describe '詳細表示機能' do
   context '任意のタスク詳細画面に遷移した場合' do
     it '該当タスクの内容が表示される' do
-      @task = FactoryBot.create(:task, name: 'task1')
+      # @task = FactoryBot.create(:task, name: 'task1')
 
-      visit task_path(@task)
+      visit task_path(@task1)
 
       expect(page).to have_content 'task1'
     end

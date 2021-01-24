@@ -9,22 +9,16 @@
     <%= javascript_include_tag 'application',  'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-    <div class="wrapper">
-      <header>
-      </header>
       <% flash.each do |key, value| %>
-      <div class="alert <%= bootstrap_class_for(key) %>" ><%= value %></div>
+        <%= content_tag(:div, value, class: "#{key}") %>
       <% end %>
-    <div class="content">
-      <div class="title_parent">
-        <div class="title_child">
-          <%= yield :title %>
-        </div>
-      </div>
-    <%= yield :error %>
-    <div class="form-content">
+      <% if logged_in? %>
+        <%= link_to "マイページ", user_path(current_user.id) %>
+        <div><%= link_to "Logout", session_path(current_user.id), method: :delete %></div>
+      <% else %>
+        <%= link_to "Sign up", new_user_path %>
+        <%= link_to "Login", new_session_path %>
+      <% end %>
       <%= yield %>
-    </div>
-    </div>
-  </body>
+    </body>
 </html>

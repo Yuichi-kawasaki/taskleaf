@@ -7,7 +7,7 @@ class User < ApplicationRecord
   before_destroy :admin_zero
   before_update  :admin_authorization
 
-  # has_secure_password
+  has_secure_password
   validates :password, presence: true, length: { minimum: 6 }
 
   has_many :tasks, foreign_key: :user_id, dependent: :destroy
