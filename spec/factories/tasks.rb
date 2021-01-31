@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :task do
-  
     name { 'task1' }
     limit_on { '2020-11-12' }
     status { '未着手' }

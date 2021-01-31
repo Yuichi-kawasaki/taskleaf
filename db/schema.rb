@@ -16,13 +16,13 @@ ActiveRecord::Schema.define(version: 2021_01_24_003755) do
   enable_extension "plpgsql"
 
   create_table "tasks", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "priority", default: 0, null: false
-    t.date "limit_on"
-    t.integer "status"
+    t.date "limit_on", null: false
+    t.integer "status", null: false
     t.bigint "user_id"
     t.index ["name"], name: "index_tasks_on_name"
     t.index ["user_id"], name: "index_tasks_on_user_id"

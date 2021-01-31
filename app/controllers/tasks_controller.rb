@@ -2,19 +2,17 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    if params[:name].present? && params[:status].present?
-      @tasks = current_user.tasks.get_by_name(params[:name]).get_by_status(params[:status]).page(params[:page]).per(5)
-    elsif params[:name].present?
-      @tasks = current_user.tasks.get_by_name(params[:name]).page(params[:page]).per(5)
-    elsif params[:status].present?
-      @tasks = current_user.tasks.get_by_status(params[:status]).page(params[:page]).per(5)
-    elsif params[:sort_expired]
-      @tasks = current_user.tasks.order(limit_on: "DESC").page(params[:page]).per(5)
-    elsif params[:sort_priority]
-      @tasks = current_user.tasks.order(priority:"DESC").page(params[:page]).per(5)
-    else
-      @tasks = current_user.tasks.order(id: "DESC").page(params[:page]).per(5)
+    @tasks = current_user.tasks.order(id: "DESC")
+
+    if params[:task].present?
+
+      @tasks = @tasks.get_by_name(params[:task][:name])
+      @tasks = @tasks.get_by_status(params[:task][:status]) if params[:task][:status].present?
     end
+    @tasks = @tasks.order(limit_on: "DESC") if params[:sort_expired]
+    @tasks = @tasks.order(priority: "DESC") if params[:sort_priority]
+
+    @tasks.page(params[:page]).per(5)
   end
 
   def show
@@ -39,7 +37,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = current_user.tasks.build(params[:id])
+    @task = current_user.tasks.build(task_params)
     if @task.save
       redirect_to tasks_path, notice: "タスクを作成しました！"
     else

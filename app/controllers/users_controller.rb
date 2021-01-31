@@ -18,10 +18,6 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    # if @user == current_user
-    # else
-    #   redirect_to root_path, notice: "他者のページアクセスできません"
-    # end
   end
 
   private

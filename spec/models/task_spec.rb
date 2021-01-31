@@ -7,9 +7,9 @@ RSpec.describe Task, type: :model do
     before do
       @user = FactoryBot.create(:user)
       @admin_user = FactoryBot.create(:admin_user)
-      @task1 = FactoryBot.create(:task, name: 'task1', user_id: @user)
-      @task2 = FactoryBot.create(:second_task, name: 'task2')
-      @task3 = FactoryBot.create(:second_task, name: 'task3', user_id: @admin_user)
+      @task1 = FactoryBot.create(:task, name: 'task1', user_id: @user.id)
+      @task2 = FactoryBot.create(:second_task, name: 'task2', user_id: @user.id)
+      @task3 = FactoryBot.create(:second_task, name: 'task3', user_id: @admin_user.id)
     end
     context 'scopeメソッドでタイトルのあいまい検索をした場合' do
       it "検索キーワードを含むタスクが絞り込まれる" do
@@ -63,8 +63,10 @@ RSpec.describe Task, type: :model do
 
       context 'タスクのタイトルと期限とステイタスに内容が記載されている場合' do
         it 'バリデーションが通る' do
+          # binding.irb
+          @user = FactoryBot.create(:user)
 
-          task = Task.new(name: 'task', limit_on: '2020-12-12', status: '未着手')
+          task = Task.new(name: 'task', limit_on: '2020-12-12', status: '未着手', user_id: @user.id)
           expect(task).to be_valid
         end
       end

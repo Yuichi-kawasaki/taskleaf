@@ -1,4 +1,3 @@
-
 require 'rails_helper'
 RSpec.describe 'ユーザ登録・ログイン・ログアウト機能', type: :system do
 

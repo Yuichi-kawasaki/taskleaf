@@ -3,8 +3,8 @@ RSpec.describe 'タスク管理機能', type: :system do
   before do
     @user = FactoryBot.create(:user)
     @admin_user = FactoryBot.create(:admin_user)
-    @task1 = FactoryBot.create(:task, name: 'task1', user_id: @admin_user)
-    @task2 = FactoryBot.create(:second_task, name: 'task2', user_id: @admin_user)
+    @task1 = FactoryBot.create(:task, name: 'task1', user_id: @admin_user.id)
+    @task2 = FactoryBot.create(:second_task, name: 'task2', user_id: @admin_user.id)
     visit new_session_path
     fill_in 'Email',with: 'admin@admin.com'
     fill_in 'Password',with: '00000000'
