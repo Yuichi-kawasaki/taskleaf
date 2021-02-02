@@ -5,7 +5,6 @@ class TasksController < ApplicationController
     @tasks = current_user.tasks.order(id: "DESC")
 
     if params[:task].present?
-
       @tasks = @tasks.get_by_name(params[:task][:name])
       @tasks = @tasks.get_by_status(params[:task][:status]) if params[:task][:status].present?
     end
@@ -13,6 +12,8 @@ class TasksController < ApplicationController
     @tasks = @tasks.order(priority: "DESC") if params[:sort_priority]
 
     @tasks.page(params[:page]).per(5)
+
+    @tasks = @tasks.joins(:labels).where(labels: { id: params[:label_id] }) if params[:label_id].present?
   end
 
   def show
@@ -52,8 +53,9 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:name, :limit_on, :status, :priority)
+    params.require(:task).permit(:name, :limit_on, :status, :priority, { label_ids: [] })
   end
+
   def set_task
     @task = current_user.tasks.find(params[:id])
   end
