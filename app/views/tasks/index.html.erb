@@ -33,11 +33,10 @@
              <td><%= link_to '詳細を確認する', task_path(task.id) , class: "btn btn-outline-primary"%></td>
              <td><%= link_to 'タスクの編集', edit_task_path(task.id), class: "btn btn-outline-warning", data: { confirm: '本当に編集していいですか？' }  %></td>
              <td><%= link_to 'タスクの消去', task_path(task.id), class: "btn btn-outline-danger", method: :delete, data: { confirm: '本当に消去しますか?' } %></td>
-             <td>
-               <% task.labels.each do |label| %>
-                 <%= labels %>
-               <% end %>
-             </td>
+
+             <% task.labels.each do |label| %>
+               <%= label.title %>
+             <% end %>
 
           </tr>
            <% end %>
