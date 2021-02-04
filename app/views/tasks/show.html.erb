@@ -7,7 +7,7 @@
 <p>優先順位: <%= @task.priority %></p>
 <p>ラベル:
    <% @task.labels.each do |label| %>
-     <%= label.title %>
+     <li><%= label.title %></li>
    <% end %>
 </p>
 
