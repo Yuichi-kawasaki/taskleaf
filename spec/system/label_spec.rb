@@ -6,8 +6,8 @@ RSpec.describe 'ラベル機能', type: :system do
     @label3 = FactoryBot.create(:label3)
     @user = FactoryBot.create(:user)
     @admin_user = FactoryBot.create(:admin_user)
-    @task1 = FactoryBot.create(:task, name: 'task1', user: @admin_user)
-    @task2 = FactoryBot.create(:second_task, name: 'task2', user: @admin_user)
+    @task1 = FactoryBot.create(:task, name: 'task1', user_id: @admin_user.id)
+    @task2 = FactoryBot.create(:second_task, name: 'task2', user_id: @admin_user.id)
     @labelling = FactoryBot.create(:labelling, task: @task1, label: @label)
     visit new_session_path
     fill_in 'Email',with: 'admin@admin.com'

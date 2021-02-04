@@ -70,7 +70,7 @@ RSpec.describe 'ユーザ登録・ログイン・ログアウト機能', type: :
       end
 
       it 'ログアウトできること' do
-        click_link 'Logout'
+        click_link 'ログアウト'
 
         expect(current_path).to eq new_session_path
       end
@@ -138,13 +138,14 @@ RSpec.describe 'ユーザ登録・ログイン・ログアウト機能', type: :
         expect(page).to have_content 'test3'
       end
 
-      it '管理者はユーザの削除をできること' do
-        sleep 1
-        click_link 'ユーザー情報削除', href: admin_user_path(@user.id)
-        page.driver.browser.switch_to.alert.accept
-
-        expect(page).to have_content 'ユーザー「テスト」を削除しました。'
-      end
+      # it '管理者はユーザの削除をできること' do
+      #   sleep 1
+      #   click_link 'ユーザー情報削除', href: admin_user_path(@user.id)
+      #
+      #   page.driver.browser.switch_to.alert.accept
+      #
+      #   expect(page).to have_content 'ユーザー「テスト」を削除しました。'
+      # end
     end
   end
 end

@@ -9,16 +9,19 @@
     <%= javascript_include_tag 'application',  'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-      <% flash.each do |key, value| %>
-        <%= content_tag(:div, value, class: "#{key}") %>
-      <% end %>
-      <% if logged_in? %>
-        <%= link_to "マイページ", user_path(current_user.id) %>
-        <div><%= link_to "Logout", session_path(current_user.id), method: :delete %></div>
+      <% if current_user %>
+      <%= link_to "タスク一覧", tasks_path, class: "btn-primary badge" %>
+        <% if current_user.admin? %>
+      <%= link_to "ユーザー管理画面へ", admin_users_path, class: "btn-primary badge" %>
+        <% end %>
+      <%= link_to "ログアウト", session_path(current_user.id), method: :delete, class:"btn-warning badge" %>
+      <P ><%= current_user.name %></P>
+      <td><%= link_to "マイページ", user_path(current_user.id), class:" btn btn-primary" unless current_user.admin? %></td>
       <% else %>
-        <%= link_to "Sign up", new_user_path %>
-        <%= link_to "Login", new_session_path %>
+      <%= link_to "ログイン", new_session_path, class: "btn-primary badge" %>
+      <%= link_to "新規ユーザー登録", new_user_path, class: "btn-primary badge" %>
       <% end %>
+
       <%= yield %>
     </body>
 </html>

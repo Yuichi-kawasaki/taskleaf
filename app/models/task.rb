@@ -24,4 +24,9 @@ class Task < ApplicationRecord
   scope :get_by_priority, -> (priority) {
     where(priority: priority)
   }
+
+  scope :get_by_labels_id, -> (label){
+    where('id LIKE?', "%#{title}%")
+  }
+
 end

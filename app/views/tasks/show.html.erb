@@ -1,8 +1,14 @@
 
-<h1>タスクを編集する</h1>
+<h1>タスク詳細</h1>
+
 <p>タイトル: <%= @task.name %></p>
 <p>期限: <%= @task.limit_on %></p>
 <p>ステイタス: <%= @task.status %></p>
 <p>優先順位: <%= @task.priority %></p>
+<p>ラベル:
+   <% @task.labels.each do |label| %>
+     <%= label.title %>
+   <% end %>
+</p>
 
 <%= link_to 'タスク一覧画面に戻る', tasks_path, class: "btn btn-primary btn-lg" %>
